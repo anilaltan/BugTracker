@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - BugTracker</title>
+        <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/BugTracker.styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-custom navbar-dark bg-primary">
+              <div class="container-fluid">
+                <a asp-controller="Home" asp-action="Dashboard" class="navbar-brand"><i class="bi bi-bug"></i>Bug Tracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav me-auto d-xl-none">
+                    <li class="nav-item">
+                         <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Home" asp-action="Dashboard"><i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Ticket" asp-action="OwnedTicketsList"><i class="bi bi-tag"></i><span class="ms-1 d-none d-sm-inline">My Tickets</span></a>
+                     </li>
+                     @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer")){
+                         <li class="nav-item">
+                             <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Ticket" asp-action="TicketsList"><i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Tickets</span></a>
+                         </li>
+                     }
+                         @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager")){
+                         <li class="nav-item">
+                             <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Project" asp-action="ProjectsList"><i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Projects</span></a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link px-sm-0 px-2 link-secondary" asp-area="" asp-controller="Role" asp-action="Index"><i class="bi bi-kanban"></i><span class="ms-1 d-none d-sm-inline">Manage Roles</span></a>
+                         </li>
+                     }
+                  </ul>
+                  <partial name="_LoginPartial" />
+                </div>
+              </div>
+            </nav>
+        </header>
+
+        <div class="container-fluid overflow-hidden">
+            <div class="row vh-100 overflow-auto">
+                <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-primary d-flex sticky-top d-none d-xl-block">
+                        <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                            <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+                                <li class="nav-item">
+                                    <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Home" asp-action="Dashboard"><i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Ticket" asp-action="OwnedTicketsList"><i class="bi bi-tag"></i><span class="ms-1 d-none d-sm-inline">My Tickets</span></a>
+                                </li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Ticket" asp-action="TicketsList"><i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Tickets</span></a>
+                                    </li>
+                                }
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link px-sm-0 px-2 link-secondary" asp-controller="Project" asp-action="ProjectsList"><i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Projects</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-sm-0 px-2 link-secondary" asp-area="" asp-controller="Role" asp-action="Index"><i class="bi bi-kanban"></i><span class="ms-1 d-none d-sm-inline">Manage Roles</span></a>
+                            </li>
+                        }
+                    </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
+            </div>
+        </div>
+        <footer class="border-top footer text-muted text-center text-lg-start">
+            <div class="text-center container">&copy; 2022 - BugTracker Created by<a class="text-dark" href="https://www.linkedin.com/in/an%C4%B1laltan/"> Anıl Altan</a></div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+</html>

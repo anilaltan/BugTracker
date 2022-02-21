@@ -1,0 +1,44 @@
+﻿@using BugTracker.Models.ViewModels.Project
+@model  List<ProjectsListViewModel>
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">@ViewBag.Title</h2>
+        </div>
+        <div class="col-6 text-end">
+                <a asp-controller="Project" asp-action="CreateProject" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp; Create New Project</a>
+         </div>
+    </div>
+       <div class="table-responsive">
+                <table class="table table-hover" id="dataTable" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">ProjectName</th>
+                            @*<th>Members</th>*@
+                            <th scope="col">Tikects</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Edit | Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ele in Model)
+                        {
+                            <tr>
+                                <td>@ele.Name</td>
+                                @*<td>@ele.NumberOfMembers</td>*@
+                                <td>@ele.NumberOfTickets</td>
+                                <td>@ele.CreateDate.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    <a href="@Url.Action("EditProject", "Project", new { pId = ele.Id })" class="alert-link"><i class="bi bi-pencil-square"></i>Edit</a> |
+                                    <a href="@Url.Action("ProjectDetail", "Project", new { Id = ele.Id })" class="alert-link"><i class="bi bi-clipboard-data"></i>Detail</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BugTracker.Models.Domain.Ticket>
+@{
+    ViewBag.Title = "DetailTicket";
+       
+}
+
+<div class="container-fluid">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Ticket title</th>
+            <th>Project Name</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Creator</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+

@@ -1,0 +1,85 @@
+﻿@model BugTracker.Models.Domain.Project
+@{
+    ViewData["Title"] = "Detail Project";
+    
+}
+
+<div class="container-fluid">
+    <h2 class="text-primary">Detail of Project</h2>
+    <a class="btn btn-primary float-end" href="@Url.Action("ProjectsList", "Project")" , role="button">Back</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Project Description</th>
+                <th>Created</th>
+                <th>Number of tickets</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.CreateTime)
+                    </td>
+                    @{
+                        int numberOfTickets = ViewBag.numberOfTickets;
+                        <td>
+                            @Html.DisplayFor(t => numberOfTickets)
+                        </td>
+                    
+                    }
+                </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Ticket title</th>
+                <th scope="col">Created</th>
+                <th scope="col">Updated</th>
+                <th scope="col">Status</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Edit | Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            List<BugTracker.Models.Domain.Ticket> tickets = ViewBag.Tickets;
+            foreach (var item in tickets)
+            {
+
+                <tr>
+                    <th scope="row">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Updated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditTicket", "Ticket", new { tId = item.Id })" class="alert-link"><i class="bi bi-pencil-square"></i>Edit</a> |
+                        <a href="@Url.Action("DetailTicket", "Ticket", new { tId = item.Id })" class="alert-link"><i class="bi bi-clipboard-data"></i>Detail</a>
+                    </td>
+                </tr>}
+            }
+        </tbody>
+    </table>
+</div>

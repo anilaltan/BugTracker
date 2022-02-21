@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BugTracker.Models.Domain.Ticket>
+
+@{
+    ViewData["Title"] = @ViewBag.Title;
+}
+
+<div class="container-fluid">
+    <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">@ViewBag.Title</h2>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Ticket" asp-action="Createticket" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp;Create New</a>
+            </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Ticket title</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Created</th>
+                <th scope="col">Updated</th>
+                <th scope="col">Status</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Edit | Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Updated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditTicket", "Ticket", new { tId = item.Id })" class="alert-link"><i class="bi bi-pencil-square"></i>Edit</a> |
+                        <a href="@Url.Action("DetailTicket", "Ticket", new { tId = item.Id })" class="alert-link"><i class="bi bi-clipboard-data"></i>Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
