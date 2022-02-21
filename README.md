@@ -1,5 +1,5 @@
 # BugTracker
-C# Asp.Net MVC Bug Tracker
+## C# Asp.Net MVC Bug Tracker
 
 A bug tracking tool that is simple, quick, and modern in design, allowing you to handle issues effortlessly and deliver amazing products on schedule. It is a bug tracking and problem tracking tool that is accessible over the web. You may log in now using a demo account (Each roles)
 
